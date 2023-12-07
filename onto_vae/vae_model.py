@@ -122,10 +122,6 @@ class OntoVAE(nn.Module):
         """
         Calculates VAE loss as combination of reconstruction loss and weighted Kullback-Leibler loss.
         """
-        # TESTING WEIGHT VECTOR AND NEW REC LOSS FUNCTION
-        # rec_loss_wts = torch.ones(data.size(dim=1),1).to(self.device)
-        # rec_loss = torch.sum(torch.matmul(input=(data - reconstruction)**2, other=rec_loss_wts))
-        
         kl_loss = -0.5 * torch.sum(1. + log_var - mu.pow(2) - log_var.exp(), )
         
         if rec_loss_wts is not None:
@@ -238,6 +234,9 @@ class OntoVAE(nn.Module):
             over how many epochs to train
         run
             passed here if logging to Neptune should be carried out
+        rec_loss_wts
+            either None or a path where reconstruction loss feature weights are stored
+            the weights should be in a csv file with two named columns containing gene symbols and gene weights, order matters but names don't
         """
         # train-test split
         indices = np.random.RandomState(seed=42).permutation(self.X.shape[0])
@@ -297,7 +296,7 @@ class OntoVAE(nn.Module):
         rec_loss_wts
             location of weights file
         output
-            'rec_loss_wts': vector of normalised weights
+            'rec_loss_wts': vector of normalized weights
         """
         # import the weights file
         rec_loss_wts = pd.read_csv(rec_loss_wts, sep=",", index_col=0)
