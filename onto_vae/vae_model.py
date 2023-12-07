@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import pandas as pd
 import numpy as np
 import torch
 from torch import optim
@@ -117,18 +118,27 @@ class OntoVAE(nn.Module):
             
         return reconstruction, mu, log_var
 
-    def vae_loss(self, reconstruction, mu, log_var, data, kl_coeff, mode='train', run=None):
+    def vae_loss(self, reconstruction, mu, log_var, data, kl_coeff, mode='train', run=None, rec_loss_wts=None):
         """
         Calculates VAE loss as combination of reconstruction loss and weighted Kullback-Leibler loss.
         """
+        # TESTING WEIGHT VECTOR AND NEW REC LOSS FUNCTION
+        # rec_loss_wts = torch.ones(data.size(dim=1),1).to(self.device)
+        # rec_loss = torch.sum(torch.matmul(input=(data - reconstruction)**2, other=rec_loss_wts))
+        
         kl_loss = -0.5 * torch.sum(1. + log_var - mu.pow(2) - log_var.exp(), )
-        rec_loss = F.mse_loss(reconstruction, data, reduction="sum")
+        
+        if rec_loss_wts is not None:
+            rec_loss = torch.sum(torch.matmul(input=(data - reconstruction)**2, other=rec_loss_wts))
+        else:
+            rec_loss = F.mse_loss(reconstruction, data, reduction="sum")
+        
         if run is not None:
             run["metrics/" + mode + "/kl_loss"].log(kl_loss)
             run["metrics/" + mode + "/rec_loss"].log(rec_loss)
         return torch.mean(rec_loss + kl_coeff*kl_loss)
 
-    def train_round(self, dataloader, lr, kl_coeff, optimizer, run=None):
+    def train_round(self, dataloader, lr, kl_coeff, optimizer, run=None, rec_loss_wts=None):
         """
         Parameters
         ----------
@@ -158,7 +168,7 @@ class OntoVAE(nn.Module):
 
             # forward step
             reconstruction, mu, log_var = self.forward(data)
-            loss = self.vae_loss(reconstruction, mu, log_var, data, kl_coeff, mode='train', run=run)
+            loss = self.vae_loss(reconstruction, mu, log_var, data, kl_coeff, mode='train', run=run, rec_loss_wts=rec_loss_wts)
             running_loss += loss.item()
 
             # backward propagation
@@ -179,7 +189,7 @@ class OntoVAE(nn.Module):
         train_loss = running_loss/len(dataloader)
         return train_loss
 
-    def val_round(self, dataloader, kl_coeff, run=None):
+    def val_round(self, dataloader, kl_coeff, run=None, rec_loss_wts=None):
         """
         Parameters
         ----------
@@ -205,14 +215,14 @@ class OntoVAE(nn.Module):
 
                 # forward step
                 reconstruction, mu, log_var = self.forward(data)
-                loss = self.vae_loss(reconstruction, mu, log_var,data, kl_coeff, mode='val', run=run)
+                loss = self.vae_loss(reconstruction, mu, log_var,data, kl_coeff, mode='val', run=run, rec_loss_wts=rec_loss_wts)
                 running_loss += loss.item()
 
         # compute avg val loss
         val_loss = running_loss/len(dataloader)
         return val_loss
 
-    def train_model(self, modelpath, lr=1e-4, kl_coeff=1e-4, batch_size=128, epochs=300, run=None):
+    def train_model(self, modelpath, lr=1e-4, kl_coeff=1e-4, batch_size=128, epochs=300, run=None, rec_loss_wts=None):
         """
         Parameters
         ----------
@@ -250,10 +260,15 @@ class OntoVAE(nn.Module):
         val_loss_min = float('inf')
         optimizer = optim.AdamW(self.parameters(), lr = lr)
 
+        # weights for reconstruction loss
+        if rec_loss_wts is not None:
+            rec_loss_wts = self.get_rec_loss_wghts(rec_loss_wts).to(self.device)
+
+        # loop through epochs
         for epoch in range(epochs):
             print(f"Epoch {epoch+1} of {epochs}")
-            train_epoch_loss = self.train_round(trainloader, lr, kl_coeff, optimizer, run)
-            val_epoch_loss = self.val_round(valloader, kl_coeff, run)
+            train_epoch_loss = self.train_round(trainloader, lr, kl_coeff, optimizer, run, rec_loss_wts)
+            val_epoch_loss = self.val_round(valloader, kl_coeff, run, rec_loss_wts)
             
             if run is not None:
                 run["metrics/train/loss"].log(train_epoch_loss)
@@ -272,6 +287,28 @@ class OntoVAE(nn.Module):
             print(f"Train Loss: {train_epoch_loss:.4f}")
             print(f"Val Loss: {val_epoch_loss:.4f}")
 
+
+    def get_rec_loss_wghts(self, rec_loss_wts):
+        """
+        Gets predefined gene weights for the weighted reconstruction error.
+
+        Parameters
+        ----------
+        rec_loss_wts
+            location of weights file
+        output
+            'rec_loss_wts': vector of normalised weights
+        """
+        # import the weights file
+        rec_loss_wts = pd.read_csv(rec_loss_wts, sep=",", index_col=0)
+        # match to the genes list and convert to a tensor
+        genes = pd.DataFrame(self.genes)
+        genes.index = genes.iloc[:,0]
+        rec_loss_wts = torch.tensor(genes.join(rec_loss_wts).fillna(0).drop(0, axis=1).to_numpy(), dtype=torch.float32)
+        # normalize the weights
+        rec_loss_wts = torch.mul(rec_loss_wts, torch.div(rec_loss_wts.size(dim=0), torch.sum(rec_loss_wts,)))
+
+        return rec_loss_wts
 
     def _pass_data(self, data, output):
         """
