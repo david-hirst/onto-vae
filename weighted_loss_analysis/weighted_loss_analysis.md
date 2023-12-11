@@ -13,8 +13,9 @@ rec_loss_wts = os.path.join(os.getcwd(),'gene_weights.csv')
 ```
 The first column of the csv should contain gene symbols consistant with those used in the loaded ontology object. The second column should contain a weight for each gene. The function expects the csv file to contain column headings, although the headings themselves are ignored. If the user ignores this argument then the training is performed without any node weighting.
 
+## Background
 
-## Results
+## Evaluation
 
 The empirical cumulative distribution of AUC scores
 
