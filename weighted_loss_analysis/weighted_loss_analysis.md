@@ -2,6 +2,8 @@
 
 The object of this analysis was to implementation the inclusion of node weightings for the reconstruction loss of Onto-VAE.
 
+This was done with $$(X - \tilde{X})^2 w $$
+
 ## Results
 
 The empirical cumulative distribution of AUC scores
