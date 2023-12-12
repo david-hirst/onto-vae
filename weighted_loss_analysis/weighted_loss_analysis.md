@@ -45,8 +45,8 @@ We created four subsets of the full GTEx expression dataset for calculating weig
 
 - liver and spleen
 - brain and pancreas
-- heart and muscle
 - adipose tissue and breast
+- heart and muscle
 
 For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the weight for each gene.
 
@@ -59,3 +59,11 @@ We evaluated each finetuned model by generating decoder node values for each sam
 </p>
 
 <!-- <img src="images/AUC_boxplots.png"> -->
+
+We next looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC from using derived nodes versus unweighted finetuning. The table below shows the top five terms, with respect to increase in AUC, for the three tissue pairs that we had observed a noticable improvement in the overall distribution.
+
+|Tissue pair |Term | AUC Delta |
+|------------|-----|-----------|
+|Brain, Pancreas|positive regulation of reproductive process|0.5|
+
+
