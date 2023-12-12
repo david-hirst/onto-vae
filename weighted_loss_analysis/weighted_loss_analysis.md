@@ -63,6 +63,7 @@ We evaluated each finetuned model by generating decoder node values for each sam
 We next looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC from using derived nodes versus unweighted finetuning. The table below shows the top five terms, with respect to increase in AUC, for the three tissue pairs that we had observed a noticable improvement in the overall distribution.
 
 <center>
+  
 |Tissue pair |Term |
 |------------|-----|
 |Brain, Pancreas|positive regulation of reproductive process|
@@ -82,4 +83,5 @@ We next looked at the GO terms associated with the decoder nodes to determine wh
 | |maintenance of cell number|
 | |cell surface receptor signaling pathway involved in cell-cell signaling|
 | |canonical Wnt signaling pathway|
+
 </center>
