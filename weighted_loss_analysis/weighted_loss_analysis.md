@@ -52,12 +52,10 @@ For each tissue pair, we performed a differential expression analysis with DESeq
 
 For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the subset as input data as well as the corresponing derived weights. We also carried out finetuning without weights, as well as with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
-We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a seperate naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful a node was for the classification of samples with respect to the two tissue types.    
+We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a seperate naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful a node was for the classification of samples with respect to the two tissue types. The empirical cumulative distribution of AUC scores are shown below for each subset and weighting method.  
 
 The empirical cumulative distribution of AUC scores
 
-<img src="images/AUC-EDCF-plots.png">
+<img src="images/AUC-EDCF-plots.png", align = "center">
 
-Boxplots of the AUC values
-
-<img src="images/AUC_boxplots.png">
+<!-- <img src="images/AUC_boxplots.png"> -->
