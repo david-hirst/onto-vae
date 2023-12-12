@@ -62,12 +62,22 @@ We evaluated each finetuned model by generating decoder node values for each sam
 
 We next looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC from using derived nodes versus unweighted finetuning. The table below shows the top five terms, with respect to increase in AUC, for the three tissue pairs that we had observed a noticable improvement in the overall distribution.
 
-|Tissue pair |Term | AUC Delta |
-|------------|-----|-----------|
-|Brain, Pancreas|positive regulation of reproductive process|0.5|
-| |mesonephric epithelium development|0.5|
-| |kidney epithelium development|0.5|
-
-
-
-
+|Tissue pair |Term |
+|------------|-----|
+|Brain, Pancreas|positive regulation of reproductive process|
+| |mesonephric epithelium development|
+| |kidney epithelium development|
+| |cell cycle G2/M phase transition|
+| |response to reactive oxygen species|
+| | |
+|Heart, Muscle|skeletal muscle tissue development|
+| |muscle tissue development|
+| |striated muscle tissue development|
+| |cellular response to acid chemical|
+| |positive regulation of leukocyte mediated immunity|
+| | |
+|Adipose Tissue, Breast|Wnt signaling pathway, calcium modulating pathway|
+| |Wnt signaling pathway|
+| |maintenance of cell number|
+| |cell surface receptor signaling pathway involved in cell-cell signaling|
+| |canonical Wnt signaling pathway|
