@@ -48,7 +48,7 @@ We created four subsets of the full GTEx expression dataset for calculating weig
 - adipose tissue and breast
 - heart and muscle
 
-For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the weight for each gene.
+For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the raw weight for each gene.
 
 For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the subset as input data as well as the corresponing derived weights. We also carried out finetuning without weights, as well as with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
