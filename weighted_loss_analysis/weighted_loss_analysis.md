@@ -32,6 +32,7 @@ Underlying this is the assumption of independent gaussian input nodes, each char
 
 If input node weightings are included when training OntoVAE, then the loss function becomes
 $$L_W(\boldsymbol{x}, \theta, \phi) = \lambda \times D_{KL}(q_{\phi}(\boldsymbol{z}|\boldsymbol{x})||p(\boldsymbol{z})) + \sum_{d=1}^D w_d(x_d - \hat{x}_d)^2$$
+This is equivalent to assuming $p(x_d|\boldsymbol{z}) = N(\hat{x}_d,\nu_d\sigma^2)$ where $w_d = 1/\nu_d$
 
 ## Evaluation
 
