@@ -32,14 +32,18 @@ Underlying this is the assumption of independent gaussian input nodes, each char
 
 If input node weightings are specified when training OntoVAE, the loss function incorporates a $D$-dimensional vector of weights, $\boldsymbol{w}$: 
 $$L_W(\boldsymbol{x}^{(i)}, \theta, \phi) = \lambda \times D_{KL}(q_{\phi}(\boldsymbol{z}|\boldsymbol{x}^{(i)})||p(\boldsymbol{z})) + \sum_{d=1}^D w_d(x^{(i)}_d - \hat{x}^{(i)}_d)^2$$
-This is equivalent to assuming $p(x^{(i)}_d|\boldsymbol{z}) = N(\hat{x}^{(i)}_d,\nu_d\sigma^2)$ where $w_d = 1/\nu_d$
+This is equivalent to assuming $p(x^{(i)}_d|\boldsymbol{z}) = N(\hat{x}^{(i)}_d,\nu_d\sigma^2)$, where $w_d = 1/\nu_d$
 
 In our implementation, the user supplies a vector of raw weights $\boldsymbol{r}$, which we normalize to give 
 $$w_d =  \frac{r_d \times D}{\sum r_d}$$
 
 ## Evaluation
 
-We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO) and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms form the GO.
+We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO) and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms from the GO.
+
+We selected four subsets of the full GTEx expression dataset for calculating weights and finetuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were liver and spleen; brain and pancreas; heart and muscle; adipose tissue and breast. For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the weight for each gene.
+
+
 
 The empirical cumulative distribution of AUC scores
 
