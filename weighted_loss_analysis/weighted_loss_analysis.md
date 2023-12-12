@@ -59,6 +59,10 @@ We evaluated each finetuned model by generating decoder node values for each sam
 <img src="images/AUC-EDCF-plots.png">
 </p>
 -->
+
+<p align="center">
+<img src="https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/images/AUC-EDCF-plots.png">
+</p>
  
 ![](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/images/AUC-EDCF-plots.png)
 
