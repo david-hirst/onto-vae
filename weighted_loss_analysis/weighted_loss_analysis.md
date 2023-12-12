@@ -41,9 +41,16 @@ $$w_d =  \frac{r_d \times D}{\sum r_d}$$
 
 We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO) and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms from the GO.
 
-We selected four subsets of the full GTEx expression dataset for calculating weights and finetuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were liver and spleen; brain and pancreas; heart and muscle; adipose tissue and breast. For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the weight for each gene.
+We created four subsets of the full GTEx expression dataset for calculating weights and finetuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were:
+- liver and spleen
+- brain and pancreas
+- heart and muscle
+- adipose tissue and breast
+For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the weight for each gene.
 
+For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the subset as input data as well as the corresponing derived weights. We also carried out finetuning without weights, as well as with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
+We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a seperate naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful a node was for the classification of samples with respect to the two tissue types.    
 
 The empirical cumulative distribution of AUC scores
 
