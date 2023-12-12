@@ -65,5 +65,9 @@ We next looked at the GO terms associated with the decoder nodes to determine wh
 |Tissue pair |Term | AUC Delta |
 |------------|-----|-----------|
 |Brain, Pancreas|positive regulation of reproductive process|0.5|
+| |mesonephric epithelium development|0.5|
+| |kidney epithelium development|0.5|
+
+
 
 
