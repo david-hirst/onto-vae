@@ -50,9 +50,9 @@ We created four subsets of the full GTEx expression dataset for calculating weig
 
 For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the raw weight for each gene.
 
-For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the subset as input data as well as the corresponing derived weights. We also carried out finetuning without weights, as well as with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
+For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the expression subset as input data. We carried out finetuning without weights, with derived weights, and with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
-We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a seperate naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful a node was for the classification of samples with respect to the two tissue types. The empirical cumulative distribution of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain form using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
+We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distribution of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain form using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
 
 <p align="center">
 <img src="images/AUC-EDCF-plots.png">
@@ -61,8 +61,6 @@ We evaluated each finetuned model by generating decoder node values for each sam
 <!-- <img src="images/AUC_boxplots.png"> -->
 
 We next looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC from using derived nodes versus unweighted finetuning. The table below shows the top five terms, with respect to increase in AUC, for the three tissue pairs that we had observed a noticable improvement in the overall distribution.
-
-<center>
   
 |Tissue pair |Term |
 |------------|-----|
@@ -83,5 +81,3 @@ We next looked at the GO terms associated with the decoder nodes to determine wh
 | |maintenance of cell number|
 | |cell surface receptor signaling pathway involved in cell-cell signaling|
 | |canonical Wnt signaling pathway|
-
-</center>
