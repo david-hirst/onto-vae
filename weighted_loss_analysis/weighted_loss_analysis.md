@@ -63,8 +63,6 @@ We evaluated each finetuned model by generating decoder node values for each sam
 <p align="center">
 <img src="https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/images/AUC-EDCF-plots.png">
 </p>
- 
-![](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/images/AUC-EDCF-plots.png)
 
 We next looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC from using derived nodes versus unweighted finetuning. The table below shows the top five terms, with respect to increase in AUC, for the three tissue pairs that we had observed a noticable improvement in the overall distribution.
   
