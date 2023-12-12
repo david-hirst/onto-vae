@@ -56,6 +56,8 @@ We evaluated each finetuned model by generating decoder node values for each sam
 
 The empirical cumulative distribution of AUC scores
 
-<img src="images/AUC-EDCF-plots.png", align = "center">
+<p align="center">
+<img src="images/AUC-EDCF-plots.png">
+</p>
 
 <!-- <img src="images/AUC_boxplots.png"> -->
