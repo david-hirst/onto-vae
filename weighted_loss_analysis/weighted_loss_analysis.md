@@ -30,9 +30,12 @@ $$L(\boldsymbol{x}, \theta, \phi) = \lambda \times D_{KL}(q_{\phi}(\boldsymbol{z
 
 Underlying this is the assumption of independent gaussian input nodes, each characterised by $p(x_d|\boldsymbol{z}) = N(\hat{x}_d,\sigma^2)$.
 
-If input node weightings are included when training OntoVAE, then the loss function becomes
+If input node weightings are specified when training OntoVAE, the loss function incorporates a $D$-dimensional vector of weights, $\boldsymbol{w}$: 
 $$L_W(\boldsymbol{x}, \theta, \phi) = \lambda \times D_{KL}(q_{\phi}(\boldsymbol{z}|\boldsymbol{x})||p(\boldsymbol{z})) + \sum_{d=1}^D w_d(x_d - \hat{x}_d)^2$$
 This is equivalent to assuming $p(x_d|\boldsymbol{z}) = N(\hat{x}_d,\nu_d\sigma^2)$ where $w_d = 1/\nu_d$
+
+In our implementation, the user supplies a vector of raw weights $\boldsymbol{r}$, which we normalize to give 
+$$\boldsymbol{w} = \boldsymbol{r} \frac{D}{\sum_{d=1}^D r_d}$$
 
 ## Evaluation
 
