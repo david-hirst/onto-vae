@@ -15,7 +15,7 @@ The first column of the csv should contain gene symbols consistant with those us
 
 ## Background
 
-OntoVAE is a variational autoencdoer (VAE) that allows for the incorporation of prior knowledge in the form of a biological ontology. A VAE consists of two neural networks, an encoder and a decoder. The input for the encoder is $\boldsymbol{x}^{(i)}$, which is a $D$-dimensional vector whose elements are the input nodes.
+OntoVAE is a variational autoencdoer (VAE) that allows for the incorporation of prior knowledge in the form of a biological ontology. A VAE consists of two neural networks, an encoder and a decoder. The input for the encoder is $\boldsymbol{x}^{(i)}$, which is a $D$-dimensional vector whose elements are the input nodes. The encoder derives $q_{\phi}(\boldsymbol{z}|\boldsymbol{x}^{(i)})$, where $\boldsymbol{z}$ is a vector of latent variables.  
 
 ## Evaluation
 
