@@ -38,7 +38,7 @@ $$w_d =  \frac{r_d \times D}{\sum r_d}$$
 
 ## Evaluation
 
-We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO) and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms from the GO.
+We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO), and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms from the GO.
 
 We created four subsets of the full GTEx expression dataset for calculating weights and finetuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were:
 
