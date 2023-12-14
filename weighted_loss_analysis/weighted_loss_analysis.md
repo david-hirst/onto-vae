@@ -54,7 +54,7 @@ For each subset, we trained the exisitng OntoVAE model for a further 100 epochs,
 We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distributions and boxplots of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain from using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
 
 <p align="center">
-<img src="images/AUC-EDCF-plots.png" width="500" height="400"> <img src="images/AUC_boxplots.png" width="500" height="400">
+<img src="images/AUC-EDCF-plots.png" width="550" height="450"> <img src="images/AUC_boxplots.png" width="450" height="450">
 </p>
 
 We looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC (from using derived nodes versus unweighted finetuning). The table below shows the five terms with the biggest improvement in AUC, for the three tissue pairs for which we had observed a noticable improvement in the overall distribution.
