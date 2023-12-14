@@ -1,6 +1,6 @@
 # OntoVAE with reconstruction loss weights
 
-The object of this project was to allow the inclusion of input node weightings for the reconstruction loss of OntoVAE. We have implemented this [in the vae_model.py module in this forked github repository](https://github.com/david-hirst/onto-vae/blob/main/onto_vae/vae_model.py). We have inserted an argument, `rec_loss_wts`, into the function called to train OntoVAE 
+The object of this project was to allow the inclusion of input node weightings for the reconstruction loss of OntoVAE. We have implemented the inclusion [in the vae_model.py module in this forked github repository](https://github.com/david-hirst/onto-vae/blob/main/onto_vae/vae_model.py). We have inserted an argument, `rec_loss_wts`, into the function called to train OntoVAE 
 ```
 def train_model(...., rec_loss_wts=None):
 ```
