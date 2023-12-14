@@ -78,3 +78,12 @@ We looked at the GO terms associated with the decoder nodes to determine which t
 | |maintenance of cell number|
 | |cell surface receptor signaling pathway involved in cell-cell signaling|
 | |canonical Wnt signaling pathway|
+
+## Code used in analysis
+
+The code used for carrying out the finetuning: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py
+
+The code used for evaluating the finetuned models: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Assess.py
+
+The notebook used for creating plots: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Summarise.ipynb
+
