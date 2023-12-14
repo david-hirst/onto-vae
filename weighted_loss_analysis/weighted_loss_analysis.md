@@ -51,8 +51,9 @@ For each tissue pair, we performed a differential expression analysis with DESeq
 
 For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the expression subset as input data. We carried out finetuning without weights, with derived weights, and with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
-We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distributions and boxplots of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain form using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
+We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distributions and boxplots of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain from using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
 
+//
 
 <p align="center">
 <img src="images/AUC-EDCF-plots.png" width="500" height="500"> <img src="images/AUC_boxplots.png" width="500" height="500">
