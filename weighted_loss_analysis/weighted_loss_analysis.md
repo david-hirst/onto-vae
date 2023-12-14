@@ -38,26 +38,26 @@ $$w_d =  \frac{r_d \times D}{\sum r_d}$$
 
 ## Evaluation
 
-We evaluated our implementation by finetuning an exisitng OntoVAE model. The exisitng model used a trimmed version of the Gene Ontology (GO), and had been trained on GTEx expression data. In this conext, each input node is a gene and the decoder terms represent terms from the GO.
+We evaluated our implementation by fine-tuning an existing OntoVAE model. The existing model used a trimmed version of the Gene Ontology (GO), and had been trained on GTEx expression data. In this context, each input node is a gene and the decoder terms represent terms from the GO.
 
-We created four subsets of the full GTEx expression dataset for calculating weights and finetuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were:
+We created four subsets of the full GTEx expression dataset for calculating weights and fine-tuning the model. Each subset contained RNA-seq values for samples from one of two tissues. The four tissues type pairs were:
 
 - liver and spleen
 - brain and pancreas
 - adipose tissue and breast
 - heart and muscle
 
-For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute vlaue of the moderated log2 fold change between the two tissue types as the raw weight for each gene.
+For each tissue pair, we performed a differential expression analysis with DESeq2. We used the absolute value of the moderated log2 fold change between the two tissue types as the raw weight for each gene.
 
-For each subset, we trained the exisitng OntoVAE model for a further 100 epochs, using only the expression subset as input data. We carried out finetuning without weights, with derived weights, and with a vector of randomly generated weights. Each finetuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
+For each subset, we trained the existing OntoVAE model for a further 100 epochs, using only the expression subset as input data. We carried out fine-tuning without weights, with derived weights, and with a vector of randomly generated weights. Each fine-tuning run was carried out independently of the others, meaning only the initial trained model was used as a starting point.
 
-We evaluated each finetuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distributions and boxplots of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain from using the derived weights. However, for the other tissue pairs there was a noticiable improvement in the overall distriubtion of AUC scores after using the derived weights in the finetuning.
+We evaluated each fine-tuned model by generating decoder node values for each sample. For each decoder node, we trained a naive Bayes classifier with 10-fold cross validation and computed the median area under the curve (AUC). The median AUC indicates how useful the node was for the classification of samples with respect to the two tissue types. The empirical cumulative distributions and boxplots of AUC scores are shown below for each subset and weighting method. We observe that for liver and spleen, the decoder nodes already classify the samples well and there is little gain from using the derived weights. However, for the other tissue pairs there was a noticeable improvement in the overall distribution of AUC scores after using the derived weights in the fine-tuning.
 
 <p align="center">
 <img src="images/AUC-EDCF-plots.png" width="500" height="500"> <img src="images/AUC_boxplots.png" width="500" height="500">
 </p>
 
-We looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC (from using derived nodes versus unweighted finetuning). The table below shows the five terms with the biggest improvement in AUC, for the three tissue pairs for which we had observed a noticable improvement in the overall distribution.
+We looked at the GO terms associated with the decoder nodes to determine which terms had the largest improvement in AUC (from using derived nodes versus unweighted fine-tuning). The table below shows the five terms with the biggest improvement in AUC, for the three tissue pairs for which we had observed a noticable improvement in the overall distribution.
   
 |Tissue pair |Term |
 |------------|-----|
@@ -81,13 +81,13 @@ We looked at the GO terms associated with the decoder nodes to determine which t
 
 ## Discussion
 
-We observed that weighting the contibutions of nodes to the reconstruction loss resulted in latent values that better differentiated between sample groups. This initial, proof-of-concpet, analysis suggests it is worthwhile further pursuing the idea of input node weighting. A potential limitation of the study is that we used the smae data for weighting the nodes as for finetuning the model. Therefore a potential next step would be to incorporate node weightings that are based on prior knowledge that is independent of the input dataset.
+We observed that weighting the contributions of nodes to the reconstruction loss resulted in latent values that better differentiated between sample groups. This initial, proof-of-concept, analysis suggests it is worthwhile further pursuing the idea of input node weighting. A potential limitation of the study is that we used the same data for weighting the nodes as for fine-tuning the model. Therefore a potential next step would be to incorporate node weightings that are based on prior knowledge that is independent of the input dataset.
 
 ## Code used in analysis
 
-[The code used for carrying out the finetuning](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py)
+[The code used for carrying out the fine-tuning](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py)
 
-[The code used for evaluating the finetuned models](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Assess.py)
+[The code used for evaluating the fine-tuned models](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Assess.py)
 
 [The notebook used for creating plots](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Summarise.ipynb)
 
