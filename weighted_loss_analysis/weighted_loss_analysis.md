@@ -1,6 +1,6 @@
 # OntoVAE with reconstruction loss weights
 
-The object of this project was to allow the inclusion of input node weightings for the reconstruction loss of OntoVAE. We have implemented this in the [vae_model.py](https://github.com/david-hirst/onto-vae/blob/main/onto_vae/vae_model.py) in this forked repository. We have inserted an argument, `rec_loss_wts`, into the function called to train OntoVAE 
+The object of this project was to allow the inclusion of input node weightings for the reconstruction loss of OntoVAE. We have implemented this [here](https://github.com/david-hirst/onto-vae/blob/main/onto_vae/vae_model.py). We have inserted an argument, `rec_loss_wts`, into the function called to train OntoVAE 
 ```
 def train_model(...., rec_loss_wts=None):
 ```
@@ -81,9 +81,9 @@ We looked at the GO terms associated with the decoder nodes to determine which t
 
 ## Code used in analysis
 
-The code used for carrying out the finetuning: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py
+[The code used for carrying out the finetuning](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py)
 
-The code used for evaluating the finetuned models: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Assess.py
+[The code used for evaluating the finetuned models](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Assess.py)
 
-The notebook used for creating plots: https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Summarise.ipynb
+[The notebook used for creating plots](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/OntoVAE_Wghtng_Summarise.ipynb)
 
