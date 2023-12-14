@@ -55,7 +55,7 @@ We evaluated each finetuned model by generating decoder node values for each sam
 
 
 <p align="center">
-<img src="images/AUC-EDCF-plots.png" width="100" height="100">
+<img src="images/AUC-EDCF-plots.png" width="100" height="100"> <img src="images/AUC_boxplots.png" width="100" height="100">
 </p>
 
 <p align="center">
