@@ -79,6 +79,10 @@ We looked at the GO terms associated with the decoder nodes to determine which t
 | |cell surface receptor signaling pathway involved in cell-cell signaling|
 | |canonical Wnt signaling pathway|
 
+## Discussion
+
+We observed that weighting the contibutions of nodes to the reconstruction loss resulted in latent values that better differentiated between sample groups. This initial, proof-of-concpet, analysis suggests it is worthwhile further pursuing the idea of input node weighting. A potential limitation of the study is that we used the smae data for weighting the nodes as for finetuning the model. Therefore a potential next step would be to incorporate node weightings that are based on prior knowledge that is independent of the input dataset.
+
 ## Code used in analysis
 
 [The code used for carrying out the finetuning](https://github.com/david-hirst/onto-vae/blob/main/weighted_loss_analysis/GO_pretrained_finetune.py)
